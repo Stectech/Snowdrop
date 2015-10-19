@@ -81,3 +81,6 @@ gem 'coffee-rails'
 gem 'uglifier'
 gem 'execjs'
 gem 'therubyracer', platform: :ruby unless ENV["CI"]
+
+# Slim templates. From 0.2.0, there is no need to include gem "slim".
+gem 'slim-rails'
