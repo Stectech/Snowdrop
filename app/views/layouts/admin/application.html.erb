@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml", xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+    <title>
+      <%= t(:crm_admin_page) %>
+    </title>
+    <!-- <%= controller.controller_name %>:<%= controller.action_name %> -->
+    <%= stylesheet_link_tag :application %>
+    <%= stylesheet_link_tag :print, :media => 'print' %>
+    <style>
+      <%= yield :styles %>
+    </style>
+    <%= javascript_include_tag :application %>
+    <%= hook(:javascript_includes, self) {} %>
+    <script type="text/javascript">
+      <%= yield :javascript %>
+    </script>
+    <%= csrf_meta_tag %>
+  </head>
+  <body class="admin">
+    <%= render "layouts/admin/header" %>
+    <%= render "layouts/tabbed" %>
+    <%= render "layouts/footer" %>
+    <script type="text/javascript">
+      <%= "crm.base_url = #{Setting.base_url};" unless Setting.base_url.blank? %>
+      <%= get_browser_timezone_offset %>
+      <%= yield :javascript_epilogue %>
+    </script>
+  </body>
+</html>
