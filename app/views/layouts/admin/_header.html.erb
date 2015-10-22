@@ -1,0 +1,16 @@
+<div id="header">
+
+  <div id="welcome">
+    <span>
+      <%= t :welcome %>, <%= current_user.name %>
+    </span><span>!&nbsp;&nbsp;</span>
+    <%= link_to(t(:quick_find), "#", :id => "jumper") << " |" %>
+    <%= link_to(t(:profile), profile_path) << " |" %>
+    <%= link_to(t(:back_to_crm), root_path) << " |" %>
+    <%= link_to(t(:logout), logout_path, :method => :delete) %>
+    <%= render "/layouts/jumpbox" %> 
+  </div>
+  <h3>
+    <%= link_to(t(:crm_admin_page), admin_path) %>
+  </h3>
+</div>
