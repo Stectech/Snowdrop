@@ -1,0 +1,36 @@
+<% current_auto_complete = session[:auto_complete] || :leads %>
+<%= content_for(:javascript_epilogue) do %>
+  (function ($) {
+    $(function() {
+      new crm.Popup({
+        trigger     : "#jumper",
+        target      : "#jumpbox",
+        under       : "#welcome",
+        appear      : 300,
+        fade        : 300,
+        before_show : function() {
+          $("#jumper").addClass("selected");
+          $("#jumpbox_label").html("");
+          $("#jumpbox_label").hide();
+          $("#jumpbox_menu").show();
+          crm.auto_complete("#{current_auto_complete}");
+        },
+        after_show  : function() {
+          $("#auto_complete_query").focus();
+        },
+        after_hide  : function() {
+          $("#jumper").removeClass("selected");
+        }
+      });
+    });
+})($);
+<% end %>
+<div id="jumpbox" hidden="">
+  <span id="jumpbox_menu">
+    <%= jumpbox(current_auto_complete) %>
+  </span>
+  <span id="jumpbox_label" hidden=""></span>
+  <br>
+  <%= text_field_tag "auto_complete_query", nil, :style => "width: 310px", :autocomplete => :off %>
+  <div class="auto_complete" id="auto_complete_dropdown"></div>
+</div>
