@@ -1,0 +1,80 @@
+<% edit ||= false %>
+<%  collapsed = (@account.errors.empty? && session[:account_contact].nil?) %>
+<%= subtitle :account_contact, collapsed, t(:contact_info) %>
+<div class="section">
+  <small id="account_contact_intro" hidden_if(!collapsed)>
+    <%= t(:intro, t(:account_small)) unless edit %>
+  </small>
+  <div id="account_contact" hidden_if(!collapsed)>
+    <table>
+      <tr>
+        <td colspan=3>
+          <table width="100%" cellpadding=0 cellspacing=0>
+            <tr>
+              <td>
+                <div class="label">
+                  <%= t(:phone_toll_free)%>
+                  <%= f.text_field :toll_free_phone, :style => "width:154px" %>
+                </div>
+              </td>
+
+              <td>
+                <%= spacer %>
+              </td>
+
+              <td>
+                <div class="label">
+                  <%= t(:phone) %>
+                </div>
+                <%= f.text_field :phone, :style => "width:154px" %>
+              </td>
+
+              <td>
+                <%= spacer %>
+              </td>
+
+              <td>
+                <div class="label">
+                  <%= t(:fax) %>
+                  <%= f.text_field :fax, :style => "width:154px" %>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="label top">
+                  <%= t(:website) %>
+                  <%= f.text_field :website %>
+                </div>
+              </td>
+
+              <td>
+                <%= spacer %>
+              </td>
+
+              <td>
+                <div class="label top">Email:</div>
+                <%= f.text_field :email %>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <%= render "shared/address", :f => f, :asset => @account, :type => :billing, :title => :billing_address %>
+              </td>
+
+              <td>
+                <%= spacer %>
+              </td>
+
+              <td>
+                <%= render "shared/address", :f => f, :asset => @account, :type => :shipping, :title => :shipping_address, :same_as_billing => true %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
