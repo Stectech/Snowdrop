@@ -23,4 +23,3 @@ production:
 staging:
   <<: *development
   database: fat_free_crm_staging
-
