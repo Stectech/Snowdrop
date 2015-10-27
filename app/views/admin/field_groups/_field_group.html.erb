@@ -1,0 +1,40 @@
+<% asset = field_group.klass_name.downcase %>
+
+<div class="field_group" id="field_group<%= field_group.id %>">
+  <% edit_form_id = dom_id(field_group, :edit) %>
+  <% create_form_id = dom_id(field_group, :create_field) %>
+</div>
+
+  <div class="subtitle_tools">
+    <% unless field_group.name == "custom_fields" %>
+      <%= link_to_inline(edit_form_id, edit_admin_field_group_path(field_group), :text => t(:edit_field_group)) %>
+      |
+    <% end %>
+
+    <%= link_to(arrow_for(create_form_id) + t(:create_field), '#', :class => 'create') %>
+
+    <% unless field_group.name == "custom_fields" %>
+      |
+      <%= link_to_confirm(field_group) %>
+    <% end %>
+  </div>
+
+  <div class="subtitle" id= "<%= dom_id(field_group) %>_title">
+    <%= field_group_subtitle(field_group) %>
+  </div>
+
+  <div class="remote" hidden id="<%= edit_form_id %>"></div>
+
+  <div class="list">
+    <ul id="<%= dom_id(field_group, :fields) %>" data-sortable="<%= sort_admin_fields_path(:field_group_id => field_group.id) %>" data-sortable-connect-with='.fields' data-sortable-handle='.handle'>
+
+    </ul>
+      <%= render :partial => "admin/fields/field", :collection => field_group.fields.without_pairs %>
+      <li class="empty">
+        <%= t(:field_group_empty) %>
+        <%= link_to t(:create_field), '#', :class => 'create', 'data-for' => create_form_id %>
+      </li>
+
+    <div class="remote merge create_field" hidden id="<%= create_form_id %>"></div>
+      <%= render :partial => 'admin/fields/form', :locals => {:field_group_id => field_group.id} %>
+  </div>
