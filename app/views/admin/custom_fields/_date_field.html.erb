@@ -1,0 +1,22 @@
+<table>
+  <%= 'TESTING123' %>
+  <tr>
+    <td>
+      <div class="label top">Hint: </div>
+      <%= f.text_field :hint %>
+    </td>
+
+    <td><%= spacer %></td>
+
+    <td>
+      <div class="label top">
+        <span>Required:</span>
+        <%= f.check_box :required %>
+        <br>
+        <span>Disabled:</span>
+        <%= f.check_box :disabled %>
+        <div style='width: 240px;'></div>
+      </div>
+    </td>
+  </tr>
+</table>
