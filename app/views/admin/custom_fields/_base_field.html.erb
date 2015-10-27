@@ -1,0 +1,34 @@
+<table>
+  <tr>
+    <td>
+      <div class="label top">Maxlength: </div>
+      <%= f.text_field :maxlength %>
+    </td>
+
+    <td><%= spacer %></td>
+
+    <td>
+      <div class="label top">
+        <%= f.check_box :required %>
+        <%= f.label :required %>
+        <br>
+        <%= f.check_box :disabled %>
+        <%= f.label :disabled %>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <%= f.label :hint, :class => "label top" %>
+      <%= f.text_field :hint %>
+    </td>
+
+    <td><%= spacer %></td>
+
+    <td>
+      <%= f.label :placeholder, :class => "label top" %>
+      <%= f.text_field :placeholder %>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,34 @@
+<div class="standalone" id="standalone">
+  <%# The following form gets submitted to #create when @authentication is nil,
+   or to #update when @authentication is not nil (ex. suspended). %>
+  <%= form_for @authentication, :url => authentication_path, :html => one_submit_only do |f| %>
+    <% if can_signup? %>
+      <div class="title_tools">
+        <%= t :no_account %> <%= link_to t(:sign_up_now), signup_path %>
+      </div>
+    <% end %>
+    <div class="title">
+      <%= t(:login) %>
+    </div>
+    <div class="section">
+      <div class="label">
+        <%= t(:username) + ':' %>
+        <%= f.text_field :username %>
+      </div>
+      <div class="label">
+        <%= t(:password) + ':' %>
+        <%= f.password_field :password %>
+      </div>
+    </div>
+    <div style="margin-left:12px">
+      <%= f.check_box(:remember_me) %>
+      <%= t(:remember_me) %>
+    </div>
+    <br>
+    <div class="buttonbar">
+      <%= f.submit t(:login) %>
+      <%= t(:or) %>
+      <%= link_to t(:forgot_password) << '?', new_password_path %>
+    </div>
+  <% end %>
+</div>

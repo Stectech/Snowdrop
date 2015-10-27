@@ -1,0 +1,38 @@
+<div>
+  <div class="label top req">
+    <%= "Select Options (pipe separated):"%>
+  </div>
+</div>
+
+<%= f.text_field :collection_string, :class => 'field_collection_string', :size => 78 %>
+
+<table>
+  <tr>
+    <td></td>
+    <td><%= spacer%></td>
+    <td>
+      <div class="top label">
+        <span>Required:</span>
+        <%= f.check_box :required %>
+        <br/>
+        <span>Disabled:</span>
+        <%= f.check_box :disabled %>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="top label">
+        Hint:
+      </div>
+      <%= f.text_field :hint%>
+    </td>
+    <td>
+      <%= spacer %>
+    </td>
+    <td>
+      <div class="label top">Placeholder:</div>
+      <%= f.text_field :placeholder %>
+    </td>
+  </tr>
+</table>
