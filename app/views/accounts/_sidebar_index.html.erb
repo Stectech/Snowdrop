@@ -1,0 +1,34 @@
+<div class="filters" id="filters">
+
+  <div class="caption">
+    <%= t(:account_categories) %>
+  </div>
+  <% Setting.account_category.each do |key| %>
+    <div class="check_box" style="border-bottom: 1px silver dotted;">
+
+      <div style="float: right;">
+        <%= @account_category_total[key] %>
+      </div>
+      <%= account_category_checkbox(key, @account_category_total[key]) %>
+      <%= label_tag(key, t(key)) %>
+    </div>
+  <% end %>
+
+  <div class="check_box" style="border-bottom: 1px silver dotted;">
+    <div style="float:right;">
+      <%= @account_category_total[:other] %>
+    </div>
+
+    <%= account_category_checkbox("other", @account_category_total[:other]) %>
+    <%= label_tag(:other, t(:other)) %>
+  </div>
+
+  <div class="check_box">
+
+    <div style="float:right;">
+      <b><%= @account_category_total[:all] %></b>
+    </div>
+    <b><%= t(:total_accounts) %></b>
+  </div>
+  <%= hook(:index_account_sidebar_bottom, self) %>
+</div>

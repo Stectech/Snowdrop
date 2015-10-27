@@ -1,0 +1,23 @@
+<%= styles_for :account %>
+<%= render 'entities/title_bar' %>
+<div class="remote" id="create_account" hidden></div>
+
+<%= render 'search' %>
+
+<div class="remote" id="options" hidden></div>
+
+<div class="list" id="accounts">
+  <% if @accounts.any? %>
+    <%= render @accounts %>
+  <% else %>
+    <%= render "shared/empty" %>
+  <% end %>
+</div>
+
+<div id="paginate">
+  <%= render "shared/paginate_with_per_page" %>
+</div>
+
+<div id="export">
+  <%= render "shared/export" %>
+</div>

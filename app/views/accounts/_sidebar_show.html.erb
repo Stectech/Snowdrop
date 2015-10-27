@@ -1,0 +1,111 @@
+<% won = @account.opportunities.won.map(&:amount).compact.sum %>
+<% lost = @account.opportunities.lost.map(&:amount).compact.sum %>
+<% pipeline = @account.opportunities.pipeline.map(&:weighted_amount).compact.sum %>
+
+<div class="panel" id="summary">
+  <h4>
+    <%= h(@account.name) %>
+  </h4>
+  <% if @account.website %>
+    <div>
+      <b>
+        <%= link_to(truncate(@account.website, :length => 30), @account.website.to_url, :"data-popup" => true, :title => t(:open_in_window, @account.website)) %>
+      </b>
+    </div>
+  <% end %>
+
+  <% if @account.email.present? %>
+    <div>
+      <b>
+        <%= link_to_email(@account.email, 30) %>
+      </b>
+    </div>
+  <% end %>
+
+  <div>
+    <% if @account.toll_free_phone %>
+      <%= t(:phone_toll_free) %>: <b><%= @account.toll_free_phone %></b><br />
+    <% end %>
+
+    <% if @account.phone %>
+      <%= t(:phone) %>: <b><%= @account.phone %></b><br />
+    <% end %>
+
+    <% if @account.fax %>
+      <%= t(:fax) %>: <b><%= @account.fax %></b><br />
+    <% end %>
+  </div>
+
+  <div>
+    <%= render "shared/address_show", :asset => @account, :type => 'billing', :title => :billing_address %>
+  </div>
+  <div>
+    <%= render "shared/address_show", :asset => @account, :type => 'shipping', :title => :shipping_address %>
+  </div>
+
+  <div class="caption">
+    <%= t(:account_summary) %>
+  </div>
+  <li>
+    <dt>
+      <%= pipeline != 0.0 ? number_to_currency(pipeline, :precision => 0) : t(:n_a) %>
+    </dt>
+    <tt><%= t (:pipeline) %>: </tt>
+  </li>
+
+  <li>
+    <dt>
+      <%= won != 0.0 ? number_to_currency(won, :precision => 0) : t(:n_a) %>
+    </dt>
+
+    <tt><%= t(:won) %>: </tt>
+  </li>
+
+  <li>
+    <dt>
+      <%= lost != 0.0 ? number_to_currency(lost, :precision => 0) : t(:n_a) %>
+    </dt>
+
+    <tt><%= t(:lost) %>: </tt>
+  </li>
+  <li>
+    <dt>
+      <%= @account.category ? t(@account.category) : t(:other) %>
+    </dt>
+
+    <tt><%= t :category %>: </tt>
+  </li>
+
+  <li>
+    <span style="float:right;">
+      <%= stars_for(@account) %>:
+    </span>
+    <tt><%= t :rating %>: </tt>
+  </li>
+  <li>
+    <dt>
+      <%= @account.assigned_to ? truncate(@account.assignee.full_name, :length => 16) : nil %>
+    </dt>
+
+    <tt><%= t(:assigned_to) %>: </tt>
+  </li>
+
+  <% unless @account.background_info.blank? %>
+    <div class="caption">
+      <%= t :background_info %>
+    </div>
+    <%= auto_link(simple_format @account.background_info) %>
+  <% end %>
+
+  <%= render "fields/sidebar_show", :asset => @account %>
+
+  <% if @account.tag_list.present? %>
+    <dt>
+      <div class="tags">
+        <%= tags_for_index(@account) %>
+      </div>
+    </dt>
+  <% end %>
+
+  <%= hook(:show_account_sidebar_bottom, self, :account => @account) %>
+</div>
