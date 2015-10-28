@@ -1,0 +1,57 @@
+<%= styles_for :field %>
+
+<div id="confirm" style="display: none;"></div>
+
+<div class="title_tool" id="menu">
+  <%= link_to_inline(:edit_field, edit_admin_field_path(@field), :text => "Edit") + " | " %>
+</div>
+
+<div class="title" id="edit_field_title">
+  <%= @field.field_label%>
+</div>
+
+<div id="edit_field" style="display: none;"></div>
+
+<tt>
+  <br>
+  Label:
+  <b>
+    <% if @field.field_label? %>
+      <%= @field.field_label %>
+    <% end %>
+  </b>
+  <br>
+  Name:
+  <b>
+    <% if @field.field_name? %>
+      <%= @field.field_name.pluralize %>
+    <% end %>
+  </b>
+  <br>
+  Table:
+  <b>
+    <% if @field.table_name? %>
+      <%= @field.table_name.pluralize %>
+    <% end %>
+  </b>
+  <br>
+  Type:
+  <b>
+    <% if @field.field_type? %>
+      <%= @field.field_type %>
+    <% end %>  
+  </b>
+  <br>
+  <br>
+  Created at:
+  <b>
+    <%= @field.created_at.to_s %>
+  </b>
+  <br>
+  Updated at:
+  <b>
+    <%= @field.updated_at.to_s %>
+  </b>
+</tt>
+
+<%= hook(:show_field_bottom, self) {} %>
