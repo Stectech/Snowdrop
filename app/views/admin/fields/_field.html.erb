@@ -1,17 +1,21 @@
-%li.highlight.position{:class => field.class.name.underscore, :id => dom_id(field)}
-  %span.handle
-    = image_tag "sortable.gif"
+<li class="highlight position field class name underscore" id="<%= dom_id(field) %>">
+  <span class="handle">
+    <%= image_tag "sortable.gif" %>
+  </span>
 
-  .tools
-    %small
-      = link_to t(:edit), edit_admin_field_path(field), :class => 'edit'
-      = link_to_delete(field, :url => admin_field_path(field), :klass_name => 'Field')
+  <div class="tools">
+    <small>
+      <%= link_to t(:edit), edit_admin_field_path(field), :class => 'edit' %>
+      <%= link_to_delete(field, :url => admin_field_path(field), :klass_name => 'Field') %>
+    </small>
+  </div>
 
-  %tt
-    %b= field.label
-    == (#{t("field_types.#{field.as}.title")})
+  <tt>
+    <b><%= field.label %></b>
+    <%= t("field_types.#{field.as}.title") %>
+    <%= t(:added_ago, value: timeago(field.created_at)).html_safe %>
+    <%= hook(:field_bottom, self, :field => field) {} %>
+  </tt>
 
-    = t(:added_ago, value: timeago(field.created_at)).html_safe
-    = hook(:field_bottom, self, :field => field) {}
-
-  .edit_field
+  <div class="edit_field"></div>
+</li>
