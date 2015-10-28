@@ -23,18 +23,18 @@
     <%= field_group_subtitle(field_group) %>
   </div>
 
-  <div class="remote" hidden id="<%= edit_form_id %>"></div>
+  <div class="remote" id="<%= edit_form_id %>" style='display: none;'></div>
 
   <div class="list">
     <ul id="<%= dom_id(field_group, :fields) %>" data-sortable="<%= sort_admin_fields_path(:field_group_id => field_group.id) %>" data-sortable-connect-with='.fields' data-sortable-handle='.handle'>
-
     </ul>
+
       <%= render :partial => "admin/fields/field", :collection => field_group.fields.without_pairs %>
       <li class="empty">
         <%= t(:field_group_empty) %>
         <%= link_to t(:create_field), '#', :class => 'create', 'data-for' => create_form_id %>
       </li>
 
-    <div class="remote merge create_field" hidden id="<%= create_form_id %>"></div>
+    <div class="remote create_field" style='display: none;' id="<%= create_form_id %>"></div>
       <%= render :partial => 'admin/fields/form', :locals => {:field_group_id => field_group.id} %>
   </div>
