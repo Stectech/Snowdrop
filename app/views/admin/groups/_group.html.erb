@@ -1,0 +1,28 @@
+<li class="highlight group" id="group_<%= group.id %>">
+  <ul class="tools">
+    <li>
+      <%= link_to_edit [:admin, group] %>
+    </li>
+    <% count = Permission.where(:group_id => group.id).count %>
+
+    <% confirm = (count.zero? ? nil : "#{t(:confirm_group_delete, count)}") %>
+    <li>
+      <%= link_to_delete [:admin, group], :confirm => confirm %>
+    </li>
+  </ul>
+
+  <span>
+    <%= link_to(group.name, {:action => :edit, :id => group.id}, {:remote  => true,
+          :onclick => "this.href = this.href.split('?')[0] + '?previous='+crm.find_form('edit_group');"}) %>
+  </span>
+
+  <tt>
+    <% if (users = group.users).present? %>
+      <%= t('group_members') %>:
+      
+      <% users.map do |user| %>
+        <%= link_to( h(user.full_name), user ) %>
+      <% end %>
+    <% end %>
+  </tt>
+</li>
