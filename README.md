@@ -1,5 +1,5 @@
 # Staging Server Details
-URL: https://mail.stectech.com:2083 user: demostectech password: 971DpCcny
+Please deploy to heroku staging server: heroku-snowdropcrm
 
 # Fat Free CRM [![TravisCI][travis-img-url]][travis-ci-url]  [![Code Climate](https://codeclimate.com/github/fatfreecrm/fat_free_crm.png)](https://codeclimate.com/github/fatfreecrm/fat_free_crm)
 
