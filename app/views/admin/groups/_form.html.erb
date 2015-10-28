@@ -1,0 +1,22 @@
+<div class="section">
+  <table>
+    <tr>
+      <td>
+        <div class="label top req">
+          <%= t :name} %>:
+        </div>
+        <%= f.text_field :name %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="label top req">
+          <%= t :users %>:
+        </div>
+        <br>
+        <%= f.select :user_ids, User.all.map {|u| [u.full_name, u.id]}, {}, :multiple => true, :class => 'select2' %>
+      </td>
+    </tr>
+  </table>
+</div>
