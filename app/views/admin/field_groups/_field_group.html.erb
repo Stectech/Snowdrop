@@ -35,6 +35,7 @@
         <%= link_to t(:create_field), '#', :class => 'create', 'data-for' => create_form_id %>
       </li>
 
-    <div class="remote create_field" style='display: none;' id="<%= create_form_id %>"></div>
+    <div class="remote create_field" style='display: none;' id="<%= create_form_id %>">
       <%= render :partial => 'admin/fields/form', :locals => {:field_group_id => field_group.id} %>
+    </div>
   </div>

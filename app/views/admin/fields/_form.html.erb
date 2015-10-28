@@ -1,0 +1,46 @@
+<% @field ||= CustomField.new %>
+<% field_group_id ||= @field.field_group_id %>
+<% new_field = @field.id.nil? %>
+<% url = new_field ? admin_fields_path : admin_field_path %>
+<% html_id = new_field ? nil : "edit_field_#{@field.id}" %>
+
+<div class="<%= new_field ? nil : 'remote edit_field' %>">
+  <%= form_for([:admin, @field], :url => url, :as => :field, :html => {:class => nil, :id => html_id}, :remote => true) do |f| %>
+    <%= link_to( 'x', '#', :class => 'close', :title => t(:close_form) ) %>
+    <%= f.error_messages %>
+
+    <%= hidden_field_tag 'field[field_group_id]', field_group_id, :id => nil %>
+
+    <div class="section">
+      <table>
+        <tr>
+          <td>
+            <div class="label top req">Field label:</div>
+            <%= f.text_field :label, :id => nil %>
+          </td>
+
+          <td><%= spacer %></td>
+
+          <td>
+            <div class="label top req">Field type:</div>
+            <%= select :field, :as, field_edit_as_options(@field), :include_blank => true, :id => nil %>
+          </td>
+        </tr>
+      </table>
+
+      <div class="subform">
+        <%= render(:partial => 'admin/fields/subform') unless new_field %>
+      </div>
+    </div>
+
+    <div class="buttonbar">
+      <% if new_field %>
+        <%= f.submit t(:create_field), :id => :field_submit %>
+      <% else %>
+        <%= f.submit t(:save_field), :id => :field_submit %>
+      <% end %>
+      or
+      <%= link_to( t(:cancel), '#', :class => 'cancel' ) %>
+    </div>
+  <% end %>
+</div>
