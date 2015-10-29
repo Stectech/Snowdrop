@@ -1,4 +1,4 @@
-<div class="confirm confirm_tag" id="<%@tag.id%>">
+<div class="confirm confirm_tag" id="confirm_tag_<%=@tag.id%>">
   <%=t :tag_with_taggings_confirm_delete, :value => Tagging.where(:tag_id => @tag).count%>
   <%= t :delete%> <b><%=@tag.name%></b>?
   <%= link_to_confirm_delete(@tag) << " : "%>
