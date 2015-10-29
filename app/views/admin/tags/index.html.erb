@@ -1,0 +1,26 @@
+<%= styles_for :tag %>
+
+<div class="title_tools">
+  <%= link_to_inline(:create_tag, new_admin_tag_path, :text => t(:create_tag)) %>
+</div>
+
+<div class="title">
+  <span id="create_tag_title">
+    <%= t(:tags) %>
+  </span>
+  <%= image_tag("loading.gif", :size => :thumb, :id => "loading", :style => "display: none;") %>
+</div>
+
+<div class="remote" id="create_tag" hidden></div>
+
+<div class="list" id="tags">
+  <% if @tags.any? %>
+    <%= render :partial => "admin/tags/tag", :collection => @tags %>
+  <% else %>
+    <%= render "shared/empty" %>
+  <% end %>
+</div>
+
+<div id="export">
+  <%= render "shared/export" %>
+</div>
