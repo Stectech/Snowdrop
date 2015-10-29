@@ -3,7 +3,6 @@
 <div class="field_group" id="field_group<%= field_group.id %>">
   <% edit_form_id = dom_id(field_group, :edit) %>
   <% create_form_id = dom_id(field_group, :create_field) %>
-</div>
 
   <div class="subtitle_tools">
     <% unless field_group.name == "custom_fields" %>
@@ -19,7 +18,7 @@
     <% end %>
   </div>
 
-  <div class="subtitle" id= "<%= dom_id(field_group) %>_title">
+  <div class="subtitle" id="<%= dom_id(field_group) %>_title">
     <%= field_group_subtitle(field_group) %>
   </div>
 
@@ -27,15 +26,14 @@
 
   <div class="list">
     <ul id="<%= dom_id(field_group, :fields) %>" data-sortable="<%= sort_admin_fields_path(:field_group_id => field_group.id) %>" data-sortable-connect-with='.fields' data-sortable-handle='.handle'>
-    </ul>
-
       <%= render :partial => "admin/fields/field", :collection => field_group.fields.without_pairs %>
       <li class="empty">
         <%= t(:field_group_empty) %>
         <%= link_to t(:create_field), '#', :class => 'create', 'data-for' => create_form_id %>
       </li>
-
+    </ul>
     <div class="remote create_field" style='display: none;' id="<%= create_form_id %>">
       <%= render :partial => 'admin/fields/form', :locals => {:field_group_id => field_group.id} %>
     </div>
   </div>
+</div>
