@@ -1,0 +1,24 @@
+<%= styles_for :group%>
+
+<div class="title_tools">
+  <%= link_to_inline(:create_group, new_admin_group_path, :text => t(:create_group))%>
+</div>
+<div class="title">
+  <span id="create_group_title">
+    <%= t :groups%>
+  </span>
+  <%= image_tag("loading.gif", :size => :thumb, :id => "loading", :style => "display: none;")%>
+</div>
+<div class="remote" style="display: none;" id="create_group"></div>
+
+<ul class="list" id="groups">
+  <% if @groups.any? %>
+    <%= render :partial => "group", :collection => @groups %>
+  <% else %>
+    <%= render "shared/empty" %>
+  <% end %>
+</ul>
+
+<div id="paginate">
+  <%= render "shared/paginate" %>
+</div>

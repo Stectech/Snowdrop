@@ -1,0 +1,14 @@
+<div class="title"><%= h(@group.name) %></div>
+
+<div class="members">
+  <% @group.users.each do |user| %>
+    <div class="user">
+      <%= h(user.name) %>
+    </div>
+  <% end %>
+</div>
+<p>
+  <%= link_to t(:edit), edit_admin_group_path(@group)%>
+  |
+  <%= link_to t(:back), admin_groups_path%>
+</p>
