@@ -15,6 +15,15 @@
   <div class="indent">
     <%= link_to(campaign.name, campaign)%>
     <%= render "campaigns/status", :campaign => campaign %>
+    <%= render "campaigns/metrics", :campaign => campaign %>
+
+    <% if campaign.tag_list.present? %>
+      <dt>
+        <div class="tags">
+          <%= tags_for_index(campaign) %>
+        </div>
+      </dt>
+    <% end %>
     <%= hook(:campaign_bottom, self, :campaign => campaign) %>
   </div>
 </li>
