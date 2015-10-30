@@ -1,0 +1,19 @@
+<div id="confirm" hidden></div>
+
+<div class="title_tools" id="menu">
+  <%= link_to_inline(:edit_campaign, edit_campaign_path(@campaign), :text => t(:edit)) + " | " %>
+
+  <%= link_to_function(t(:delete) + '?', confirm_delete(@campaign)) %>
+</div>
+
+<div class="title_tools" id="buttons">
+  <%= view_buttons %>
+</div>
+
+<div class="title" id="edit_campaign_title">
+  <%= h(@campaign.name) %>
+
+  <%= image_tag("loading.gif", :size => :thumb, :id => "loading", :style => "display: none;") %>
+</div>
+
+<div id="edit_campaign" hidden></div>
