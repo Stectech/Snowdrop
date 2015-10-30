@@ -1,0 +1,105 @@
+<li class="highlight user" id="user_<%=user.id%>">
+  <% if user.awaits_approval?%>
+    <div class="strip signed_up">
+      <%= t :user_signed_up %>
+    </div>
+  <% elsif user.suspended?%>
+    <div class="strip suspended">
+      <%= t :user_suspended %>
+    </div>
+  <% elsif user.admin? %>
+    <%= t :user_admin %>
+  <% else %>
+    <div class="strip active">
+      <%= t :user_active %>
+    </div>
+  <% end %>
+
+  <%= avatar_for(user, size: :medium, width: '30', height: '30') %>
+
+  <div class="indentfull">
+    <div class="tools">
+      <%= link_to_edit(user, :url => edit_admin_user_path(user)) << " | " %>
+
+      <% if user.suspended? %>
+        <%= link_to_reactivate(user) << " | " %>
+      <% elsif user != current_user %>
+        <%= link_to_suspend(user) << " | " %>
+      <% else %>
+        <span class="grayed">
+          <%= t :suspend%>!
+        </span>
+        |
+      <% end %>
+
+      <% if user != current_user %>
+        <%= link_to_confirm(user) %>
+      <% else %>
+        <span class="grayed">
+           <%= t :delete%>?
+        </span>
+      <% end %>
+    </div>
+
+    <span class="black">
+      <%= link_to( user.full_name, user)%> (<%= user.username %>)
+    </span>
+    <tt>
+      <%= "- #{user.title}" unless user.title.blank? %>
+      <%= " " + t(:at) + " " + user.company unless user.company.blank? %>
+      <span class="black">
+        |
+      </span>
+      <% if user.current_login_at && user.login_count > 0 %>
+        <%= t('pluralize.login', user.login_count) %>
+        <span class="black">|</span>
+      <% end %>
+      <% if user.awaits_approval? %>
+        <b class="cool">
+          <%=t :user_awaits_approval%>
+        </b>
+      <% elsif user.current_login_at %>
+        <span class="cool">
+          <%= t(:last_logged_in, timeago(user.current_login_at)).html_safe %>
+        </span>
+      <% else %>
+        <span class="warn">
+          <%=t :user_never_logged_in %>
+        </span>
+      <% end %>
+    </tt>
+    <dt style="padding: 2px 0 0 0">
+      <%= link_to_email(user.email.to_s) << " | " %>
+      <% if user.phone? %>
+        <%= t(:phone_small) << ":" %>
+        <%= content_tag(:b, user.phone) << " | " %>
+      <% end %>
+      <% if user.mobile? %>
+        <%= t(:mobile_small) << ":" %>
+        <%= content_tag(:b, user.mobile) << " | " %>
+      <% end %>
+
+      <% if !user.suspended? %>
+        <span>
+          <%= t(:user_since, l(user.created_at.to_date, :format => :mmddyy)) %>
+        </span>
+      <% elsif user.awaits_approval? %>
+        <b class="cool">
+          <%=t(:user_signed_up_on, l(user.created_at, :format => :mmddhhss)) %>
+        </b>
+      <% else %>
+        <span class="warn">
+          <%=t(:user_suspended_on, l(user.created_at.to_date, :format => :mmddyy))%>
+        </span>
+      <% end %>
+    </dt>
+    <% groups = user.groups %>
+    <% unless groups.count.zero? %>
+      <dt style="padding: 2px 0 0 0">
+        <%= t(:groups) << ":" %>
+        <%= groups.map(&:name).join(', ')%>
+      </dt>
+    <% end %>
+  </div>
+</li>
+
