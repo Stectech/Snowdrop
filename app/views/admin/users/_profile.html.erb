@@ -57,8 +57,10 @@
   <table>
     <tr>
       <td>
-        .label #{t :first_name}:
-        = f.text_field :first_name
+        <div class="label">
+          <%= t :first_name %>:
+        </div>
+        <%= f.text_field :first_name %>
       </td>
 
       <td><%= spacer %></td>
