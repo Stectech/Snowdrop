@@ -1,0 +1,111 @@
+<% edit ||= false %>
+<div class="section">
+  <table>
+    <tr>
+      <td>
+        <div class="label top req">
+          <%= t(:username) %>:
+        </div>
+        <%= f.text_field :username %>
+      </td>
+
+      <td><%= spacer %></td>
+
+      <td>
+        <div class="label top req">
+          <%=  t(:email) %>:
+        </div>
+        <%= f.text_field :email %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="label">
+          <%= t(:password) %>:
+        </div>
+        <%= f.password_field :password %>
+      </td>
+
+      <td><%= spacer %></td>
+
+      <td>
+        <div class="label">
+          <%= t(:password_confirmation) %>:
+        </div>
+        <%= f.password_field :password_confirmation %>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan=3></td>
+        <td class="check_box" style="margin-top:6px">
+          <%# Sorry, you can't revoke Admin rights from yourself. %>
+          <%= f.check_box(:admin, { :disabled => edit && @user == current_user }) %>
+          <label for="user_admin">
+            <%= t(:user_is_admin) %>
+          </label>
+        </td>
+    </tr>
+  </table>
+</div>
+
+<div class="subtitle">
+  <%= t(:personal_information) %>
+</div>
+<div class="section">
+  <table>
+    <tr>
+      <td>
+        <div class="label">
+          <%= t :first_name %>:
+        </div>
+        <%= f.text_field :first_name %>
+      </td>
+
+      <td><%= spacer %></td>
+
+      <td>
+        <div class="label">
+          <%= t(:last_name) %>:
+        </div>
+        <%= f.text_field :last_name %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="label">
+          <%= t(:job_title) %>:
+        </div>
+        <%= f.text_field :title %>
+      </td>
+
+      <td><%= spacer %></td>
+
+      <td>
+        <div class="label">
+          <%= t(:company) %>:
+        </div>
+        <%= f.text_field :company %>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="subtitle">
+  <%= t(:group_memberships) %>
+</div>
+
+<div class="section">
+  <table>
+    <tr>
+      <td>
+        <div class="label">
+          <%= t(:groups) %>:
+        </div>
+        <%= f.select :group_ids, Group.all.map {|g| [g.name, g.id]}, {}, :multiple => true, :class => 'select2' %>
+      </td>
+    </tr>
+  </table>
+</div>
