@@ -1,0 +1,20 @@
+<li class="highlight campaign" id="campaign_<%=campaign.id%>">
+  <div class="strip <%=campaign.status%>">
+    <%= t(campaign.status)%>
+  </div>
+
+  <ul class="tools">
+    <% if can?(:update, campaign) %>
+      <li><%= link_to_edit(campaign) %></li>
+    <% end %>
+    <% if can?(:destroy, campaign) %>
+      <li><%= link_to_delete(campaign) %></li>
+    <% end %>
+  </ul>
+
+  <div class="indent">
+    <%= link_to(campaign.name, campaign)%>
+    <%= render "campaigns/status", :campaign => campaign %>
+    <%= hook(:campaign_bottom, self, :campaign => campaign) %>
+  </div>
+</li>

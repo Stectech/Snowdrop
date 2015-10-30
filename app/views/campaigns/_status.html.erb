@@ -1,0 +1,37 @@
+<tt>
+  <% case campaign.status.to_sym %>
+    <% when :started %>
+      <% if campaign.starts_on %>
+        <%= t(:started_ago, time_ago_in_words(campaign.starts_on)) %>
+        <% if campaign.ends_on %>
+          <% if campaign.ends_on > Date.today %>
+            <span>
+              ><%= ", " + t(:finishes_in, distance_of_time_in_words(Date.today, campaign.ends_on))%>
+            </span>
+          <% else %>
+            <span class="warn">
+              <%= "(" + t(:was_supposed_to_finish, campaign.ends_on.strftime('%b %e, %Y')) + ")"%>
+            </span>
+          <% end %>
+        <% end %>
+      <% else %>
+        <span class="warn"><%=t :no_start_date%></span>
+      <% end %>
+    <% when :planned %>
+      <% if campaign.starts_on %>
+        <% if campaign.starts_on > Date.today %>
+          <%= t(:starts_in, distance_of_time_in_words(Date.today, campaign.starts_on)) %>
+        <% elsif campaign.starts_on < Date.today%>
+          <span class="warn"><%= t(:was_supposed_to_start, :time_ago => distance_of_time_in_words(campaign.starts_on, Date.today), :start_date => campaign.starts_on.strftime('%b %e, %Y'))%></span>
+        <% else %>
+          <span class="cool"><%=t :starts_today%></span>
+        <% end %>
+      <% else %>
+        <span class="warn">
+           <%= t :no_start_date %>
+        </span>
+      <% end %>
+    <% when :completed %>
+      <%= t(:finished_on, campaign.ends_on.strftime('%b %e, %Y')) if campaign.ends_on %>
+  <% end %>
+</tt>

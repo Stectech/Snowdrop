@@ -1,0 +1,106 @@
+<%# Target Leads.%>
+<%#---------------------------------------------------------------------------%>
+<li>
+  <dt><%= @campaign.target_leads || t(:n_a) %></dt>
+  <tt><%= t :leads%></tt>:
+</li>
+
+<%# Target Conversion Ratio.%>
+<%#---------------------------------------------------------------------------%>
+<li>
+  <dt>
+    <%= number_to_percentage(@campaign.target_conversion, :precision => 1) || t(:n_a)%>
+  </dt>
+  <tt><%=t :conversion%>:</tt>
+</li>
+
+<%# Target Opportunities: calculated based on target number of leads and%>
+<%# expected conversion ratio.%>
+<%#---------------------------------------------------------------------------%>
+
+<li>
+  <% if @campaign.target_leads.to_i > 0 && @campaign.target_conversion.to_i > 0 %>
+    <% opportunities = @campaign.target_leads * @campaign.target_conversion / 100 %>
+    <dt><%= opportunities.to_i%></dt>
+  <% else %>
+    <dt> N/A</dt>
+  <% end %>
+  <tt><%=t :opportunities%>:</tt>
+</li>
+
+<%# Target Revenue.%>
+<%#---------------------------------------------------------------------------%>
+<li class="last">
+  <dt>
+    <%= number_to_currency(@campaign.target_revenue, :precision => 0) || t(:n_a)%>
+  </dt>
+  <tt><%=t :revenue%>:</tt>
+  <div class="caption"><%=t :actual_performance%></div>
+</li>
+
+<%# Actual Number of Leads.%>
+<%#---------------------------------------------------------------------------%>
+<li>
+  <dt>
+    <%= @campaign.leads_count || t(:n_a)%>
+  </dt>
+  <tt>
+    <%= t (:leads)%>:<%=performance(@campaign.leads_count, @campaign.target_leads)%>
+  </tt>
+</li>
+
+<%# Actual Conversion Ratio: calculated based on actual number of leads%>
+<%# and opportunities%>
+<%#---------------------------------------------------------------------------%>
+
+<li>
+  <% if @campaign.opportunities_count.to_i > 0 && @campaign.leads_count.to_i > 0 %>
+    <% conversion = @campaign.opportunities_count * 100 / @campaign.leads_count %>
+    <dt><%= number_to_percentage(conversion, :precision => 1) %></dt>
+    <tt><%=t :conversion%>: <%= performance(conversion, @campaign.target_conversion)%></tt>
+  <% else %>
+    <dt><%=t :n_a%></dt>
+    <tt><%=t :conversion%>:</tt>
+  <% end %>
+</li>
+
+<%# Actual Opportunities %>
+<%#---------------------------------------------------------------------------%>
+
+<li>
+  <dt>
+    <%= @campaign.opportunities_count || t(:n_a)%>
+  </dt>
+  <tt>
+    <%=t :opportunities%>:
+    <%= performance(@campaign.opportunities_count, opportunities)%>
+  </tt>
+</li>
+
+<%# Actual Revenue.%>
+<%#---------------------------------------------------------------------------%>
+
+<li class="last">
+  <dt>
+    <%= number_to_currency(@campaign.revenue, :precision => 0) || t(:n_a) %>
+  </dt>
+  <tt><%= t :revenue%>: <%=performance(@campaign.revenue, @campaign.target_revenue)%></tt>
+  <% unless @campaign.background_info.blank? %>
+    <div class="caption">
+      <%=t :background_info%>
+    </div>
+    <%= auto_link(simple_format @campaign.background_info)%>
+  <% end %>
+  <%= render "fields/sidebar_show", :asset => @campaign %>
+
+  <% if @campaign.tag_list.present? %>
+    <dt>
+      <div class="tags">
+        <%= tags_for_index(@campaign)%>
+      </div>
+    </dt>
+
+  <% end %>
+  <%= hook(:show_campaign_sidebar_bottom, self, :campaign => @campaign)%>
+
+</li>
