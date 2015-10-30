@@ -1,20 +1,50 @@
-<%= simple_form_for(@campaign, :html => one_submit_only, :remote => true) do |f| %>
-  <%= link_to_close new_campaign_path%>
-  <%= f.hidden_field :user_id%>
+<% edit ||= false %>
+<% collapsed = session[:campaign_objectives].nil?%> <!--&& @campaign.errors.empty? -->
+<%= subtitle :campaign_objectives, collapsed, t(:objectives) %>
 
-  <%= f.error_messages :object_name => t('campaign')%>
-
-  <%= render "campaigns/top_section", :f => f%>
-  <%= render "fields/edit_custom_field_group", :f => f%>
-  <%= render "shared/add_comment", :f => f%>
-  <%= render "campaigns/objectives",  :f => f%>
-  <%= render "fields/groups",         :f => f%>
-  <%= render "entities/permissions",  :f => f, :entity => @campaign%>
-  <%= hook(:entity_form, self, {f: f, entity: @campaign})%>
-
-  <div class="buttonbar">
-    <%= f.submit t(:create_campaign)%>
-      <%=t :or%>
-    <%= link_to_cancel new_campaign_path%>
+<div class="section">
+  <small id="campaign_objectives_intro" style=<%"display:none;" unless collapsed%>>
+    <%= t(:intro, t(:objectives_small)) unless edit%>
+  </small>
+  <div id="campaign_objectives" style=<%"display:none;" if collapsed%>>
+    <small>
+      <%= t :objectives_help%>
+    </small>
+    <table>
+      <tr>
+        <td>
+          <div class="label">
+            <%=t :number_of_leads%>:
+          </div>
+          <%= f.text_field :target_leads, :style => "width:110px; text-align:right;" %>
+        </td>
+        <td>
+          <%= spacer%>
+        </td>
+        <td>
+          <div class="label">
+            <%= :revenue_label %>:
+          </div>
+          <%= f.text_field :target_revenue, :value => @campaign.target_revenue ? @campaign.target_revenue.to_i : "", :style => "width:110px; text-align:right;"%>
+        </td>
+        <td>
+          <%= spacer%>
+        </td>
+        <td>
+          <div class="label">
+            <%= :budget_label %>:
+          </div>
+          <%= f.text_field :budget, :value => @campaign.budget ? @campaign.budget.to_i : "", :style => "width:110px; text-align:right;" %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="7">
+          <div class="label">
+            <%= :objectives %>:
+          </div>
+          <%= f.text_area :objectives, :style => "width:500px", :rows => 2 %>
+        </td>
+      </tr>
+    </table>
   </div>
-<% end %>
+</div>
