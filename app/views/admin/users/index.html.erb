@@ -1,0 +1,26 @@
+<%= styles_for :user %>
+
+<div class="title_tools">
+  <%= link_to_inline(:create_user, new_admin_user_path, :text => t(:create_user))%>
+</div>
+
+<div class="title">
+  <span id="create_user_title">
+    <%= t :users%>
+  </span>
+  <%= image_tag("loading.gif", :size => :thumb, :id => "loading", :style => "display: none;")%>
+</div>
+
+<div class="remote" id="create_user" style="display: none;"></div>
+
+<div class="list" id="users">
+  <%= render :partial => "admin/users/user", :collection => @users %>
+</div>
+
+<div id="paginate">
+  <%= render "shared/paginate"%>
+</div>
+
+<div class="export">
+  <%= render "shared/export"%>
+</div>
