@@ -1,0 +1,25 @@
+<%= styles_for :contact %>
+
+<%= render 'entities/title_bar' %>
+
+<div class="remote" id="create_contact" hidden></div>
+
+<%= render "search" %>
+
+<div class="remote" id="options" hidden></div>
+
+<div class="list" id="contacts">
+  <% if @contacts.any? %>
+    <%= render @contacts %>
+  <% else %>
+    <%= render "shared/empty" %>
+  <% end %>
+</div>
+
+<div id="paginate">
+  <%= render "shared/paginate_with_per_page" %>
+</div>
+
+<div id="export">
+  <%= render "shared/export" %>
+</div>
