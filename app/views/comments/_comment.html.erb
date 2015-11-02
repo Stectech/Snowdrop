@@ -3,7 +3,7 @@
 <% collapsable = formatted.size > 150 %>
 <% commentable = comment.commentable %>
 
-<li class="comment highlight comment" id="comment_<%= comment.id %>"></li>
+<li class="comment highlight comment" id="comment_<%= comment.id %>">
   <div class="body">
     <%= link_to avatar_for(comment.user, :size => :small), user_path(comment.user) %>
     <ul class="tools">
@@ -37,8 +37,7 @@
           <%= truncated %>
         </dt>
 
-        <dt class="textile" <%= hidden_if(comment.collapsed?) %>
-        id="<%= dom_id(comment, :formatted) %>">
+        <dt class="textile" <%= hidden_if(comment.collapsed?) %> id="<%= dom_id(comment, :formatted) %>">
           <%= sanitize auto_link(formatted) %>
         </dt>
       <% else %>
@@ -48,3 +47,4 @@
       <% end %>
     <% end %>
   </div>
+</li>
