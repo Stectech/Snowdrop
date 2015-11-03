@@ -48,7 +48,7 @@
         <%= a.hidden_field :access, :value => Setting.default_access %>
         <tr>
           <td>
-            <% != account_select_or_create(a) do |options| %>
+            <% not account_select_or_create(a) do |options| %>
               <%# Add [-- None --] account choice when editing existing contact that has an account. %>
               <% options[:include_blank] = "" unless @contact.new_record? || @contact.account.blank? %>
             <% end %>

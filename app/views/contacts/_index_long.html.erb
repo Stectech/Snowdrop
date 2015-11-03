@@ -36,7 +36,7 @@
         <% end %>
         <% if contact.phone.present? %>
           <%= t :phone_small%>:
-          <b>= contact.phone</b>
+          <b><%= contact.phone%></b>
         <% end %>
         |
         <% if contact.mobile.present? %>
