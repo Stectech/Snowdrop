@@ -1,0 +1,61 @@
+<li class="highlight contact" id="contact_<%=contact.id%>">
+  <%= avatar_for(contact, :size => "30x30")%>
+
+  <ul class="tools">
+    <%= hook(:contact_tools_before, self, :contact => contact) %>
+
+    <% if can?(:update, contact) %>
+      <li><%= link_to_edit(contact)%></li>
+    <% end %>
+
+    <% if shown_on_landing_page? %>
+      <li><%= link_to_discard(contact)%></li>
+    <% end %>
+
+    <% if can?(:destroy, contact) %>
+      <li><%= link_to_delete(contact)%></li>
+    <% end %>
+  </ul>
+
+  <div class="indentslim">
+    <%= link_to_if can?(:read, contact), contact.full_name(@current_user.preference[:contacts_naming]), contact%>
+
+    <tt>
+      <%= brief_account_info(contact) %>
+      <% if (lead = contact.lead) and lead.referred_by? %>
+        &ndash;
+        <%= t :referred_by_small%> <%lead.referred_by%>
+      <% end %>
+    </tt>
+
+    <dt style="padding: 2px 0 0 0">
+      <% if can?(:read, contact) %>
+        <% if contact.email.present?%>
+          <%= link_to_email(contact.email)%>
+          |
+        <% end %>
+        <% if contact.phone.present? %>
+          <%= t :phone_small%>:
+          <b><%= contact.phone%></b>
+        <% end %>
+        |
+        <% if contact.mobile.present? %>
+          <%= t :mobile_small %>:
+          <b><%= contact.mobile%></b>
+          |
+        <% end %>
+      <% end %>
+      <%= t(:added_ago, value: timeago(contact.created_at)).html_safe %>
+    </dt>
+    <% if contact.tag_list.present?%>
+      <dt>
+        <div class="tags">
+          <%= tags_for_index(contact)%>
+        </div>
+      </dt>
+    <% end %>
+
+    <%= hook(:contact_bottom, self, :contact => contact) %>
+
+  </div>
+</li>
