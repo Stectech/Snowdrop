@@ -1,4 +1,4 @@
-<li class="highlight contact" id="<%=contact.id%>_contact">
+<li class="highlight contact" id="contact_<%=contact.id%>">
   <%= avatar_for(contact, :size => "16x16") %>
   <ul class="tools">
     <%= hook(:contact_tools_before, self, :contact => contact) %>
