@@ -1,6 +1,3 @@
-- edit ||= false
-- collapsed = session[:contact_extra].nil? # && @contact.errors.empty?
-= subtitle :contact_extra, collapsed, t(:extra_info)
 .section
   %small#contact_extra_intro{ hidden_if(!collapsed) }
     = t(:intro, t(:extra_info_small)) unless edit
