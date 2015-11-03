@@ -1,0 +1,35 @@
+<li class="highlight contact" id="<%=contact.id%>_contact">
+  <%= avatar_for(contact, :size => "16x16") %>
+  <ul class="tools">
+    <%= hook(:contact_tools_before, self, :contact => contact) %>
+    <% if can?(:update, contact) %>
+      <li>
+        <%= link_to_edit(contact)%>
+      </li>
+    <% end %>
+    <% if shown_on_landing_page? %>
+      <li>
+        <%= link_to_discard(contact)%>
+      </li>
+    <% end %>
+    <% if can?(:destroy, contact) %>
+      <li>
+        <%= link_to_delete(contact)%>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="indentslim">
+    <%= link_to_if can?(:read, contact), contact.full_name(@current_user.preference[:contacts_naming]), contact %>
+    <tt>
+      <%= brief_account_info(contact)%>
+
+      <% if (lead = contact.lead) and lead.referred_by? %>
+        &ndash;
+        <%= t :referred_by_small%> <%=lead.referred_by%>
+      <% end %>
+    </tt>
+    <%= hook(:contact_bottom, self, :contact => contact)%>
+
+  </div>
+</li>
