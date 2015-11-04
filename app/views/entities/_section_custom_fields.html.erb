@@ -1,0 +1,17 @@
+<% entity_show = "#{entity.class.to_s.downcase}_show" %>
+<% entity.field_groups.each do |field_group| %>
+  <% if (fields = field_group.fields.without_pairs).any? %>
+    <% unless field_group.name == 'custom_fields'%>
+      <%# add a new section%>
+      <div id="field_group_<%=field_group.id%>">
+        <% collapsed = session[dom_id(field_group, entity_show)].nil? %>
+        <%= section_title dom_id(field_group, entity_show), collapsed, field_group.label_i18n, t('show_tag_info_small', :tag => field_group.label_i18n) %>
+        <div class="show_fields">
+          <div id="<%= dom_id(field_group, entity_show)%>" style=<%"display: none;" if collapsed%>>
+            <%= render "fields/group_view", :fields => fields, :entity => entity %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
