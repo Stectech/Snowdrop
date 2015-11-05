@@ -1,0 +1,150 @@
+<div class="panel" id="summary">
+  <span style="float:right">
+    <%= avatar_for(@lead, :size => "50x50")
+     %>
+  </span>
+
+  <h4>
+    <%= h(@lead.full_name) %>
+  </h4>
+
+  <% if !@lead.title.blank? && !@lead.company.blank? %>
+    <%# works_at: "{{job_title}} at {{company}}" %>
+    <div>
+      <%= t(:works_at, :job_title => @lead.title, :company => @lead.company) %>
+    </div>
+  <% else %>
+    <div>
+      <%= @lead.title unless @lead.title.blank? %>
+    </div>
+
+    <div>
+      <%= @lead.company unless @lead.company.blank? %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= render "shared/address_show", :asset => @lead, :type => 'business', :title => :address %>
+  </div>
+
+  <div>
+    <% if @lead.phone.present? %>
+      <%= t :phone %>: <b><%= @lead.do_not_call ? content_tag(:strike, @lead.phone) : @lead.phone %></b><br />
+    <% end %>
+    
+    <% if @lead.mobile.present? %>
+      <%= t :mobile %>: <b><%= @lead.do_not_call ? content_tag(:strike, @lead.mobile) : @lead.mobile %></b><br />
+    <% end %>
+
+    <% if @lead.email.present? %>
+      <%= t :email %>: <b><%= link_to_email(@lead.email) %></b><br />
+    <% end %>
+
+    <% if @lead.alt_email.present? %>
+      <%= t :other %>: <b><%= link_to_email(@lead.alt_email) %></b><br />
+    <% end %>
+  </div>
+
+  <%= web_presence_icons(@lead) %>
+
+  <div class="caption">
+    <%= t :lead_summary %>
+  </div>
+
+  <li>
+    <dt>
+      <%= t(@lead.status, :default => :n_a) %>
+    </dt>
+
+    <tt>
+      <%= t :status %>:
+    </tt>
+  </li>
+
+  <li>
+    <dt>
+      <%= t(@lead.source, :default => :n_a) %>
+    </dt>
+
+    <tt>
+      <%= t :source %>:
+    </tt>
+  </li>
+
+  <li>
+    <span style="float:right;">
+      <%= stars_for(@lead) %>
+    </span>
+
+    <tt>
+      <%= t :rating %>:
+    </tt>
+  </li>
+
+  <li>
+    <dt>
+      <%= @lead.referred_by ? truncate(@lead.referred_by, :length => 16) : t(:n_a) %>
+    </dt>
+
+    <tt>
+      <%= t :referred_by %>:
+    </tt>
+  </li>
+  <li>
+    <dt>
+      <%= @lead.assigned_to ? truncate(@lead.assignee.full_name, :length => 16) : nil %>
+    </dt>
+
+    <tt>
+      <%= t :assigned_to %>:
+    </tt>
+  </li>
+
+  <li>
+    <dt>
+      <% if @lead.campaign %>
+        <%= link_to(truncate(@lead.campaign.name, :length => 16), @lead.campaign, :title => @lead.campaign.name) %>
+      <% else %>
+        <%= t :n_a %>
+      <% end %>
+    </dt>
+
+    <tt>
+      <%= t :campaign %>:
+    </tt>
+  </li>
+
+  <li>
+    <dt>
+      <% if @lead.contact %>
+        <%= link_to(truncate(@lead.contact.name, :length => 16), @lead.contact, :title => @lead.contact.name) %>
+      <% else %>
+        <%= t :n_a %>
+      <% end %>
+    </dt>
+
+    <tt>
+      <%= t :contact %>:
+    </tt>
+  </li>
+
+  <% unless @lead.background_info.blank? %>
+    <div class="caption">
+      <%= t :background_info %>
+    </div>
+
+    <%= auto_link(simple_format @lead.background_info) %>
+  <% end %>
+
+  <%= render "fields/sidebar_show", :asset => @lead %>
+
+  <% if @lead.tag_list.present? %>
+    <dt>
+      <div class="tags">
+        <%= tags_for_index(@lead) %>
+      </div>
+    </dt>
+  <% end %>
+
+  <%= hook(:show_lead_sidebar_bottom, self, :lead => @lead) %>
+</div>
