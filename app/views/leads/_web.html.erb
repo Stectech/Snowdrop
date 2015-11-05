@@ -1,0 +1,60 @@
+<% edit ||= false %>
+<% collapsed = session[:lead_presence].nil? %> <%#  && @lead.errors.empty? %>
+<%= subtitle :lead_presence, collapsed, t(:web_presence) %>
+<div class="section">
+  <small id="lead_presence_intro" <%= hidden_if(!collapsed) %> >
+    <%= t(:intro, t(:web_presence_small)) unless edit %>
+  </small>
+  
+  <div id="lead_presence" <%= hidden_if(collapsed) %>>
+    <table>
+      <tr>
+        <td>
+          <div class="label top">
+            <%= t :blog %>:
+          </div>
+          <%= f.text_field :blog %>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label top">
+            <%= t :twitter %>:
+          </div>
+          <%= f.text_field :twitter %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div class="label">
+            <%= t :linked_in %>:
+            <%= f.text_field :linkedin %>
+          </div>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label">
+            <%= t :facebook %>:
+          </div>
+          <%= f.text_field :facebook %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div class="label">
+            <%= t :skype %>:
+          </div>
+          <%= f.text_field :skype %>
+        </td>
+
+        <td><%= spacer %></td>
+        <td><%= spacer %></td>
+      </tr>
+    </table>
+  </div>
+</div>
