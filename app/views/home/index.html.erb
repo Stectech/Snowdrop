@@ -1,0 +1,73 @@
+<%= styles_for :task, :opportunity, :account %>
+
+<div class="title">
+  <span id="title">
+    <%= t :my_tasks %>
+  </span>
+</div>
+
+<ul class="list" id="tasks">
+  <% unless @my_tasks.empty? %>
+    <%= render :partial => "home/task", :collection => @my_tasks.limit(10) %>
+    <%= show_hidden_entities_message(@my_tasks.count, 'task', 10) %>
+  <% else %>
+    <%= t :no_task_records %>
+  <% end %>
+</ul>
+
+<div class="title">
+  <span id="title">
+    <%= t :my_opportunities %>
+  </span>
+</div>
+
+<ul class="list" id="opportunities">
+  <% unless @my_opportunities.empty? %>
+    <%= render :partial => "home/opportunity", :collection => @my_opportunities.limit(10) %>
+    <%= show_hidden_entities_message(@my_opportunities.count, 'opportunity', 10) %>
+  <% else %>
+    <%= t :no_opportunity_records %>
+  <% end %>
+</ul>
+
+<div class="title">
+  <span id="title">
+    <%= t :my_accounts %>
+  </span>
+</div>
+
+<ul class="list" id="accounts">
+  <% unless @my_accounts.empty? %>
+    <%= render :partial => "home/account", :collection => @my_accounts.limit(10) %>
+    <%= show_hidden_entities_message(@my_accounts.count, 'account', 10) %>
+  <% else %>
+    <%= t :no_account_records %>
+  <% end %>
+</ul>
+
+<div class="title_tools">
+  <%= link_to_inline(:options, url_for(:action => :options), :text => t(:options)) %>
+</div>
+
+<div class="title">
+  <span id="title">
+    <%= t :recent_activity %>
+  </span>
+
+  <%= image_tag("loading.gif", :size => :thumb, :id => "loading", :style => "display: none;") %>
+</div>
+
+<div class="remote" id="options" hidden></div>
+
+<ul class="list" id="activities">
+  <% unless @activities.empty? %>
+    <%= render :partial => "activity", :collection => @activities %>
+  <% else %>
+    <%= t :no_activity_records %>
+  <% end %>
+</ul>
+
+
+<div id="export">
+  <%= render "shared/export" %>
+</div>
