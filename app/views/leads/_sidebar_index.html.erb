@@ -1,0 +1,34 @@
+<div class="filters" id="filters">
+  <div class="caption">
+    <%= t :lead_statuses %>
+  </div>
+  <% Setting.lead_status.each do |key| %>
+    <div class="check_box" style="border-bottom: 1px silver dotted;">
+      <div style="float:right;">
+        <%= @lead_status_total[key] %>
+      </div>
+      <%= lead_status_checkbox(key, @lead_status_total[key]) %>
+      <%= label_tag(key, t(key)) %>
+    </div>
+
+  <div class="check_box" style="border-bottom: 1px silver dotted;">
+    <div style="float:right;">
+      <%= @lead_status_total[:other] %>
+    </div>
+    <%= lead_status_checkbox("other", @lead_status_total[:other]) %>
+    <%= label_tag(:other, t(:other)) %>
+  </div>
+
+  <div class="check_box">
+    <div style="float:right;">
+      <b>
+        <%= @lead_status_total[:all] %>
+      </b>
+    </div>
+    <b>
+      <%= t :total_leads %>
+    </b>
+  </div>
+  
+  <%= hook(:index_lead_sidebar_bottom, self) %>
+</div>
