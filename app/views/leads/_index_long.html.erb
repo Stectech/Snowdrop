@@ -1,0 +1,91 @@
+<li class="lead highlight" id="lead_<%=lead.id%>">
+  <% if lead.status%>
+    <div class="strip lead status">
+      <%= t lead.status%>
+    </div>
+  <%else%>
+    <div class="strip" style="color: gray;">
+      <%= t :other%>
+    </div>
+  <% end %>
+
+  <ul class="tools">
+    <% if can?(:update, lead)%>
+      <li><%= link_to_edit(lead)%></li>
+    <% end %>
+
+    <% if %w(converted rejected).include?(lead.status) %>
+      <li>
+        <font color="silver">
+          <%= t :convert%>
+        </font>
+      </li>
+    <% elsif can?(:update, lead)%>
+      <li><%= link_to_convert(lead)%>
+    <% end %>
+
+    <% if lead.status == "rejected" %>
+      <li>
+        <font color="silver">
+          <%= t :reject%>
+        </font>
+      </li>
+    <% elsif can?(:update, lead) %>
+      <li><%= link_to_reject(lead)%></li>
+    <% end %>
+
+    <% if shown_on_landing_page? %>
+      <li><%= link_to_discard(lead)%></li>
+    <% end %>
+
+    <% if can?(:destroy, lead) %>
+      <li><%= link_to_delete(lead)%></li>
+    <% end %>
+
+  </ul>
+
+  <div class="indent">
+    <%= link_to_if can?(:read, lead), lead.full_name(current_user.preference[:leads_naming]), lead %>
+    <tt>
+      <% if lead.company? && lead.title? %>
+        <%= t(:works_at, :job_title => lead.title, :company => lead.company)%>
+      <% else %>
+        <%= lead.company if lead.company?%>
+        <%= lead.title if lead.title? %>
+      <% end %>
+      <% if lead.referred_by? %>
+        &ndash;
+        <%= t :referred_by_small%> <%=lead.referred_by%>
+      <% end %>
+    </tt>
+
+    <dt>
+      <%= stars_for(lead) %>
+      |
+      <% if can?(:read, lead)%>
+        <%= link_to_email(lead.email)%>
+        |
+        <% if lead.phone.present? %>
+          <%= t :phone_small%>:
+          <b><%= lead.phone%></b>
+          |
+        <% end %>
+        <% if lead.mobile.present? %>
+          <%= t :mobile_small%>:
+          <b><%= lead.mobile%></b>
+          |
+        <% end %>
+      <% end %>
+    </dt>
+
+    <% if lead.tag_list.present? %>
+      <dt>
+        <div class="tags">
+          <%= tags_for_index(lead)%>
+        </div>
+      </dt>
+    <% end %>
+
+    <%= hook(:lead_bottom, self, :lead => lead)%>
+  </div>
+</li>
