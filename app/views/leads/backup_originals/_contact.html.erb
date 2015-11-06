@@ -1,0 +1,67 @@
+<% edit ||= false %>
+<% collapsed = session[:lead_contact].nil? %> <%# && @lead.errors.empty?%>
+<%= subtitle :lead_contact, collapsed, t(:contact_info) %>
+
+<div class="section">
+  <small id="lead_contact_intro" style=<%"display: none;" unless collapsed%>>
+    <%= t(:intro, t(:lead_info_small)) unless edit%>
+  </small>
+  <div id="lead_contact" style=<%"display: none;" if collapsed%>>
+    <table>
+      <tr>
+        <td>
+          <div class="label top">
+            <% t :job_title%>:
+          </div>
+          <%= f.text_field :title%>
+        </td>
+        <td>
+          <%= spacer%>
+        </td>
+        <td>
+          <div class="label top">
+            <% t :company%>:
+          </div>
+          <%= f.autocomplete_field :company, autocomplete_account_name_leads_path%>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="label">
+            <% t :alt_email%>:
+          </div>
+          <%= f.text_field :alt_email%>
+        </td>
+        <td>
+          <%=spacer%>
+        </td>
+        <td>
+          <div class="label">
+            <% t :mobile%>:
+          </div>
+          <%= f.text_field :mobile%>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= render "shared/address", :f => f, :asset => @lead, :type => 'business', :title => :address%>
+        </td>
+        <td>
+          <%= spacer%>
+        </td>
+        <td>
+          <div class="label">
+            <% t :referred_by%>:
+          </div>
+          <%= f.text_field :referred_by%>
+          <div style="margin-top:6px">
+            <div class="check_box">
+              <%= f.check_box :do_not_call, {}, true %>
+              <% t :do_not_call %>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
