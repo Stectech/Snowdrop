@@ -1,0 +1,29 @@
+<div id="confirm" hidden></div>
+
+<div class="title_tools" id="menu">
+  <% unless %w(converted rejected).include?(@lead.status) %>
+    <%= link_to_inline(:convert_lead, convert_lead_path(@lead), :text => t(:convert)) + " | " %>
+  <% end %>
+
+  <%= link_to_inline(:edit_lead, edit_lead_path(@lead), :text => t(:edit)) + " | " %>
+
+  <% if @lead.status != "rejected" %>
+    <%= link_to_function(t(:reject) + '?', confirm_reject(@lead)) + " | " %>
+  <% end %>
+
+  <%= link_to_function(t(:delete) + '?', confirm_delete(@lead)) %>
+</div>
+
+<div class="title_tools" id="buttons">
+  <%= view_buttons %>
+</div>
+
+<div class="title" id="title">
+  <%= h(@lead.full_name) %>
+
+  <%= image_tag("loading.gif", :size => :thumb, :id => "loading", :style => "display: none;") %>
+</div>
+
+<div id="convert_lead" hidden></div>
+
+<div id="edit_lead" hidden></div>
