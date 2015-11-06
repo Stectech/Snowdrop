@@ -1,0 +1,17 @@
+<% model_name = controller_name.singularize%>
+<% model_klass = model_name.camelcase.constantize%>
+
+<div class="title_tools">
+  <div id="buttons">
+    <%= view_buttons%>
+  </div>
+  <div class="create_asset">
+    <%= link_to_inline("create_#{model_name}".to_sym, send("new_#{model_name}_path"), :text => t("create_#{model_name}".to_sym))%>
+  </div>
+</div>
+
+<div class="title">
+  <span id="create_<%=model_name%>_title <%= controller_name.to_sym%>">
+    <%= image_tag("loading.gif", :size => :thumb, :id => "loading", :style => "display: none;")%>
+  </span>
+</div>
