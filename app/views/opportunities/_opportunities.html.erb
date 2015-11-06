@@ -1,0 +1,8 @@
+<%= section(object, :opportunities)%>
+
+<div class="list" id="opportunities">
+  <% opportunities = object.opportunities.order('updated_at desc').paginate(:page => 1, :per_page => 20) %>
+  <% render :partial => "opportunities/opportunity", :collection => opportunities %>
+</div>
+
+<%= paginate( collection: opportunities, id: 'opportunities_pagination', params: { action: 'opportunities' } )%>
