@@ -1,0 +1,16 @@
+<% if field_group.name != 'custom_fields' %>
+  <%# start a new section %>
+  <% collapsed = session[field_group.key].nil? %>
+  <div id="<%= field_group.key %>_container" <%= :"data-tag" => field_group.tag.try(:name) %> >
+    <%= subtitle field_group.key, collapsed, t(field_group.name, :default => field_group.label) %>
+    <div class="section">
+      <small <%= hidden_if(!collapsed).merge(:id => "#{field_group.key}_intro") %>></small>
+      <div class="field_group" id=field_group_"<%= field_group.id %>" <%= hidden_if(collapsed) %>></div>
+        <%= render :partial => 'fields/group_table', :locals => {:f => f, :field_group => field_group} %>
+    </div>
+  </div>
+<% else %>
+  <div class="section">
+    <%= render :partial => 'fields/group_table', :locals => {:f => f, :field_group => field_group} %>
+  </div>
+<% end %>

@@ -1,0 +1,17 @@
+<table class="asset_attributes">
+  <% groups = fields.in_groups_of(2, false) %>
+
+  <% groups.each_with_index do |group, i| %>
+    <tr>
+      <% group.each do |field| %>
+        <%= col(field.label, (i == groups.size - 1) ? :last : nil) do %>
+          <%= field.render_value(entity) %>
+        <% end %>
+
+        <% if group.size == 1 %>
+          <th class="last"></th>
+          <td class="last"></td>
+        <% end %>
+    </tr>
+  <% end %>
+</table>
