@@ -9,5 +9,6 @@ crm.flip_form('<%= create_id %>');
   crm.set_title('<%= create_id %>', '<%=  j t(create_id) %>');
   <%# this function call is the only difference to normal new.js.haml %>
   crm.create_or_select_account(<%=  request.referer =~ /\/accounts\// || @account.id.blank? %>);
-- else
+<% else %>
   crm.set_title('<%= create_id %>', '<%=  j t(entity_name.pluralize) %>');
+<% end %>
