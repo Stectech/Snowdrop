@@ -1,0 +1,27 @@
+<%= styles_for :opportunity %>
+
+<%= render 'entities/title_bar' %>
+
+<div class="remote" id="create_opportunity" hidden></div>
+
+<%= render 'search' %>
+
+<div class="remote" id="options" hidden></div>
+
+<div class="list" id="opportunities">
+  <% if @opportunities.any? %>
+    <%= render @opportunities %>
+  <% else %>
+    <%= render "shared/empty" %>
+  <% end %>
+</div>
+
+<div id="paginate">
+  <%= render "shared/paginate_with_per_page" %>
+</div>
+
+<div id="export">
+  <%= render "shared/export" %>
+</div>
+
+<%= hook(:opportunity_index_after, self) %>
