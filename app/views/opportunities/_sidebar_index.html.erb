@@ -1,0 +1,30 @@
+<div class="filters" id="filters">
+  <div class="caption">
+    <%= t :opportunity_stages%>
+  </div>
+  <% @stage.each do |value, key| %>
+    <div class="check_box" style="border-bottom: 1px silver dotted;">
+      <div style="float:right;">
+        <%= @opportunity_stage_total[key]%>
+      </div>
+      <%= opportunity_stage_checkbox(key, @opportunity_stage_total[key])%>
+      <%= label_tag(key, value)%>
+    </div>
+  <% end %>
+  <div class="check_box" style="border-bottom: 1px silver dotted;">
+    <div style="float:right;">
+      <%= @opportunity_stage_total[:other]%>
+    </div>
+    <%= opportunity_stage_checkbox("other", @opportunity_stage_total[:other])%>
+    <%= label_tag(:other, t(:other))%>
+  </div>
+  <div class="check_box">
+    <div style="float:right;">
+      <b>
+        <%= @opportunity_stage_total[:all]%>
+      </b>
+    </div>
+    <b><%t :total_opportunities%></b>
+  </div>
+  <%= hook(:index_opportunity_sidebar_bottom, self)%>
+</div>
