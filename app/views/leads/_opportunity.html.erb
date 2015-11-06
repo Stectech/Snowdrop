@@ -1,0 +1,81 @@
+<%= fields_for(@opportunity) do |o| %>
+  <%= o.hidden_field :user_id %>
+  <%= o.hidden_field :access %>
+  <%= o.hidden_field :assigned_to %>
+  <%= o.hidden_field :campaign_id %>
+  <%= o.hidden_field :source %>
+
+  <div class="subtitle">
+    <%= t :opportunity %>
+  </div>
+
+  <div class="section">
+    <small>
+      <%= t(:create_opp_for_contact, @lead.full_name) %>
+    </small>
+
+    <table>
+      <tr>
+        <td>
+          <div class="label">
+            <%= t :name %>:
+          </div>
+
+          <%= o.text_field :name, :style => "width:325px" %>
+        </td>
+
+        <td> <%= spacer %></td>
+
+        <td>
+          <div class="label">
+            <%= t :stage %>:
+          </div>
+
+          <%= o.select :stage, Setting.unroll(:opportunity_stage), { :selected => @opportunity.stage ? @opportunity.stage.to_sym : nil }, { :style => "width:160px" } %>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <td>
+          <div class="label">
+            <%= t :close_date %>:
+          </div>
+
+          <%= o.text_field :closes_on, :style => "width:110px;", :autocomplete => :off, :class => 'date' %>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label">
+            <%= t :probability %>(%):
+          </div>
+
+          <%= o.text_field :probability, :style => "width:110px; text-align:right;" %>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label">
+            <%= t :amount %> <%= t :currency %>:
+          </div>
+
+          <%= o.text_field :amount, :style => "width:110px; text-align:right;" %>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label">
+            <%= t :discount %> <%= t :currency %>:
+          </div>
+
+          <%= o.text_field :discount, :style => "width:110px; text-align:right;" %>
+        </td>
+      </tr>
+    </table>
+  </div>
+<% end %>
