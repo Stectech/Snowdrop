@@ -1,0 +1,8 @@
+<% naming_menu_items = %w(before after).map { |naming| options_menu_item(:naming, naming) } %>
+
+new crm.Menu({
+  trigger   : "#naming",
+  fade      : 500,
+  appear    : 500,
+  menu_items: [ <%= naming_menu_items.join(",") %> ]
+});
