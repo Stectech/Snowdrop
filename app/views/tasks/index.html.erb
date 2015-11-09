@@ -13,13 +13,13 @@
 
 <div class="log" id="tasks">
   <% buckets.each do |value, key| %>
-    <div <%= hidden_if(filtered_out?(@view, key)) %> id= "list_<%= key %>" %> >
+    <div <%= hidden_if(filtered_out?(@view, key)) %> id= "list_<%= key %>">
       <h3 class="<%= key %>">
         <%= t(value) %>
       </h3>
 
       <div class="bucket" id="<%= key %>">
-        <%= render  :partial => @view, 
+        <%= render  :partial => @view,
                     :collection => @tasks[key] || [], :locals => { :bucket => key } %>
       </div>
     </div>
