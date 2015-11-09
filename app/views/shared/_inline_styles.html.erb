@@ -3,7 +3,7 @@
   <% if models.include?(:account) %>
     <% Setting.account_category_color.each do |key, value| %>
       <li class="account">
-        <%= key %> { background:<%= value %>; }
+        .<%= key %> { background:<%= value %>; }
       </li>
     <% end %>
   <% end %>
@@ -11,7 +11,7 @@
   <% if models.include?(:campaign) %>
     <% Setting.campaign_status_color.each do |key, value| %>
       <li class="campaign">
-        <%= key %> { background:<%= value %>; }
+        .<%= key %> { background:<%= value %>; }
       </li>
     <% end %>
   <% end %>
@@ -19,7 +19,7 @@
   <% if models.include?(:lead) %>
     <% Setting.lead_status_color.each do |key, value| %>
       <li class="lead">
-        <%= key %> { background:<%= value %>; }
+        .<%= key %> { background:<%= value %>; }
       </li>
     <% end %>
   <% end %>
@@ -27,7 +27,7 @@
   <% if models.include?(:opportunity) %>
     <% Setting.opportunity_stage_color.each do |key, value| %>
       <li class="opportunity">
-        <%= key %> { background:<%= value %>; }
+        .<%= key %> { background:<%= value %>; }
       </li>
     <% end %>
   <% end %>
@@ -35,7 +35,7 @@
   <% if models.include?(:task) %>
     <% Setting.task_category_color.each do |key, value| %>
       <li class="task">
-        <%= key %> { background:<%= value %>; }
+        .<%= key %> { background:<%= value %>; }
       </li>
     <% end %>
   <% end %>
