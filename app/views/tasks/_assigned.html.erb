@@ -1,0 +1,61 @@
+<li class="highlight assigned" id="assigned_<%=assigned.id%>">
+  <% unless assigned.category.blank? %>
+    <div class="strip <%=assigned.category%>">
+      <%= t(assigned.category)%>
+    </div>
+  <% else %>
+    <div class="strip white">
+      <% t :other %>
+    </div>
+  <% end %>
+
+  <div class="tools">
+    <%= link_to_task_edit(assigned, bucket) + " | " %>
+    <%= link_to_discard(assigned) + " | " if shown_on_landing_page? %>
+    <%= link_to_task_delete(assigned, bucket) %>
+  </div>
+
+  <div class="indent">
+    <%= link_to(assigned.assignee.full_name, user_path(assigned.assignee)) + ": " %>
+    <%= auto_link h(assigned.name) %>
+
+    <% if assigned.asset_id? %>
+      <%= t :related%> <%=link_to(h(assigned.asset.name), polymorphic_url(assigned.asset))%>
+    <% end %>
+
+    &ndash;
+  </div>
+
+  <tt>
+    <% if assigned.bucket == "due_asap" %>
+      <span class="urgent"><%= t(:task_due_now)%></span>
+    <% elsif assigned.bucket == "due_later" %>
+      <%= t(:task_due_later) %>
+    <% else %>
+      <% if assigned.at_specific_time? %>
+        <% if assigned.due_at < Time.now %>
+          <span class="warn"><%= distance_of_time_in_words(assigned.due_at, Time.now)%></span>
+          <%= t(:task_overdue) %>
+          <%= l(assigned.due_at.localtime, :format => :mmddhhss) %>
+        <% else %>
+          <%= t(:task_due_in, distance_of_time_in_words(Time.now, assigned.due_at))%>
+          <%= '(' << l(assigned.due_at.localtime, :format => :mmddhhss) << ')'%>
+        <% end %>
+      <% else %>
+        <% if assigned.due_at < Date.today %>
+          <%= t(:task_due_in, distance_of_time_in_words(Time.now, assigned.due_at.localtime.end_of_day))%>
+        <% elsif assigned.due_at > Date.today%>
+          <span class="cool"><%= t(:task_due_today)%></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tt>
+  <% unless assigned.background_info.blank? %>
+    <div>
+      <dt>
+        <%= h(assigned.background_info)%>
+      </dt>
+    </div>
+  <% end %>
+</li>
+
