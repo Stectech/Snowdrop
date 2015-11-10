@@ -1,0 +1,5 @@
+<% if params[:checked] == 'true' %>
+  $('#list_<%= j params[:filter] %>').show();
+<% else %>
+  $('#list_<%= j params[:filter] %>').hide();
+<% end %>
