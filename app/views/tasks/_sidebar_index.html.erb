@@ -1,0 +1,34 @@
+<div class="filters" id="filters">
+  <%= render "selector" %>
+
+  <% if @view == "pending" || @view == "assigned" %>
+    <% Setting.unroll(:task_bucket).each do |value, key| %>
+      <div class="check_box" style="border-bottom: 1px silver dotted;">
+        <div style="float:right;">
+          <%= @task_total[key] %>
+        </div>
+
+        <%= task_filter_checkbox(@view, key, @task_total[key]) << " " << t(value) %>
+      </div>
+    <% end %>
+
+  <% else %> <%# @view == "completed" %>
+    <% Setting.unroll(:task_completed).each do |value, key| %>
+      <div class="check_box" style="border-bottom: 1px silver dotted;">
+        <div style="float:right;">
+          <%= @task_total[key] %>
+        </div>
+
+        <%= task_filter_checkbox(@view, key, @task_total[key]) << " " << t(value) %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="check_box">
+    <div style="float:right;">
+      <b><%= @task_total[:all] %></b>
+    </div>
+
+    <b><%= t(:total_tasks, t(@view + '_tasks')) %></b>
+  </div>
+</div>
