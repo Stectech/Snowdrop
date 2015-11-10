@@ -1,0 +1,12 @@
+<div class="title_tools">
+  <%= link_to_inline(:create_task, url_for(:action => :new, :view => @view), :text => t(:create_task)) %>
+</div>
+
+<div class="title" id="title">
+  <%= (@view == "assigned" ? t(:assigned_tasks) : t(:tasks)) %>
+
+  <%= image_tag("loading.gif", :size => :thumb, :id => "loading", :style => "display: none;") %>
+</div>
+
+<div class="remote" id="options" hidden></div>
+<div class="remote" id="create_task" hidden></div>
