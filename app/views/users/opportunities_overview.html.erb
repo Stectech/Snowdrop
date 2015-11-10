@@ -1,0 +1,25 @@
+<%= styles_for :opportunity %>
+
+<div id="create_opportunity" hidden></div>
+
+<% if @users_with_opportunities.any? || @unassigned_opportunities.any? %>
+  <ul>
+    <%= render :partial => "user_report", :collection => @users_with_opportunities %>
+
+    <% if @unassigned_opportunities.any? %>
+      <div id="unassigned">
+        <div class="title">
+          <span id="title">
+            <%= t(:unassigned_opportunities) %>
+          </span>
+        </div>
+
+        <ul class="list" id="opportunities">
+          <%= render :partial => "opportunities/opportunity", :collection => @unassigned_opportunities %>
+        </ul>
+      </div>
+    <% end %>
+  </ul>
+<% else %>
+  <%= t(:no_opportunities_found) %>
+<% end %>
