@@ -1,0 +1,43 @@
+<li class="highlight completed" id="completed_<%=completed.id%>">
+  <% unless completed.category.blank? %>
+    <div class="strip <%=completed.category%>">
+      <%= t(completed.category)%>
+    </div>
+  <% else %>
+    <div class="strip white">
+      <%t :other%>
+    </div>
+  <% end %>
+
+  <div class="tools">
+    <% if shown_on_landing_page?%>
+      <%= link_to_discard(completed) + (current_user == completed.user ? ' | ' : '')%>
+    <% end %>
+    <% if can?(:manage, completed)%>
+      <%= link_to_task_uncomplete(completed, bucket)  + ' | ' %>
+      <%= link_to_task_delete(completed, bucket) %>
+    <% end %>
+  </div>
+
+  <div class="indent">
+    <strike>
+      <%= auto_link h(completed.name) %>
+    </strike>
+    <% if completed.asset_id? %>
+      <%= t :related%> <%=link_to(h(completed.asset.name), polymorphic_url(completed.asset))%>
+    <% end %>
+    &ndash;
+    <tt>
+      <span class="cool">
+        <%= t(:task_completed_by, :time_ago => distance_of_time_in_words(completed.completed_at, Time.now), :date => l(completed.completed_at, :format => :long), :user => ((completed.completor.id != current_user.id) ? link_to(h(completed.completor.full_name), user_path(completed.completor)) : t(:me))).html_safe%>
+      </span>
+    </tt>
+    <% unless completed.background_info.blank?%>
+      <div>
+        <dt>
+          <%= completed.background_info%>
+        </dt>
+      </div>
+    <% end %>
+  </div>
+</li>
