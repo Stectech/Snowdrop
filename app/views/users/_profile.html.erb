@@ -1,0 +1,145 @@
+<div class="remote">
+  <%= form_for(@user, :html => one_submit_only, :remote => true) do |f| %>
+    <%= link_to_close edit_user_path(@user) %>
+
+    <%= f.error_messages :object_name => t('user') %>
+
+    <div class="section">
+      <table>
+        <tr>
+          <td>
+            <td class="label top">
+              <%= t :first_name %>:
+            </td>
+
+            <%= f.text_field :first_name %>
+          </td>
+
+          <td><%= spacer %></td>
+
+          <td>
+            <div class="label top">
+              <%= t :last_name %>:
+            </div>
+
+            <%= f.text_field :last_name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <tr class="label top">
+              <%= t :job_title %>:
+            </tr>
+
+            <%= f.text_field :title %>
+          </td>
+
+          <td><%= spacer %></td>
+
+          <td>
+            <tr class="label top">
+              <%= t :company %>:
+            </tr>
+            <%= f.text_field :company %>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="subtitle">
+      <%=  t :contact_info %>
+    </div>
+
+    <div class="section">
+      <table>
+        <tr>
+          <td colspan="3">
+            <div class="label top req">
+              <%= t :email %>:
+            </div>
+
+            <%= f.text_field :email %>
+          </td>
+
+          <td><%= spacer %></td>
+
+          <td colspan="3">
+            <div class="label top">
+              <%=  t :alt_email %>:
+            </div>
+
+            <%= f.text_field :alt_email %>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="3">
+            <div class="label">
+              <%= t :phone %>:
+            </div>
+
+            <%= f.text_field :phone %>
+          </td>
+
+          <td><%= spacer %></td>
+
+          <td colspan="3">
+            <div class="label">
+              <%= t :mobile %>:
+            </div>
+
+            <%= f.text_field :mobile %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="label">
+              <%= t :aim %>:
+            </div>
+
+            <%= f.text_field :aim, :style => "width:112px" %>
+          </td>
+        </tr>
+
+          <td><%= spacer %></td>
+
+          <td>
+            <div class="label">
+              <%= t :yahoo %>:
+            </div>
+
+            <%= f.text_field :yahoo, :style => "width:112px" %>
+          </td>
+
+          <td><%= spacer %></td>
+
+          <td>
+            <div class="label">
+              <%= t :google %>:
+            </div>
+            <%= f.text_field :google, :style => "width:112px" %>
+          </td>
+
+          <td><%= spacer %></td>
+
+          <td>
+            <div class="label">
+              <%= t :skype %>
+            </div>
+
+            <%= f.text_field :skype, :style => "width:112px" %>
+          </td>
+      </table>
+    </div>
+
+    <div class="buttonbar">
+      <%= f.submit t :save_profile %>
+      <%= t :or %>
+      <%= link_to_cancel edit_user_path(@user) %>
+    </div>
+  <% end %>
+
+  <%= hook(:profile_user_bottom, self) %>
+<br>
+</div>
