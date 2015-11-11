@@ -1,0 +1,25 @@
+<div class="title_tools">
+  <% if @user == current_user || current_user.admin? %>
+    <%= link_to_inline(:edit_profile, edit_user_path(@user), :text => t(:edit_profile)) + " | " %>
+    <%= link_to_inline(:upload_avatar, avatar_user_path(@user), :text => t(:upload_picture)) + " | " %>
+    <%= link_to_inline(:change_password, password_user_path(@user), :text => t(:change_password)) %>
+  <% end %>
+</div>
+
+<div class="title" id="title">
+  <%= (@user == current_user ? t(:my_profile) : t(:profile)) %>
+</div>
+
+<div id="edit_profile" hidden></div>
+
+<div id="upload_avatar" hidden></div>
+
+<div id="change_password" hidden></div>
+
+<div class="list" id="profile">
+  <%= render "user" %>
+</div>
+
+<%= hook(:show_user_bottom, self) %>
+
+<iframe name="uploading" style="width:100px; height:10px; border:5px"></iframe>

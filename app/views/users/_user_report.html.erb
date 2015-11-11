@@ -1,0 +1,11 @@
+<li id="<%= dom_id(user_report) %>">
+  <div class="title">
+    <span id="title">
+      <%= user_report.full_name %>
+    </span>
+  </div>
+
+  <ul class="list" id="opportunities">
+    <%= render :partial => "opportunities/opportunity", :collection => user_report.assigned_opportunities.pipeline.order("opportunities.amount DESC") %>
+  </ul>
+</li>
