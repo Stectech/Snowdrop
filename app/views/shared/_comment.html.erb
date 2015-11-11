@@ -1,0 +1,20 @@
+<li class="highlight comment" id="comment_<%= comment.id %>">
+  <%= link_to avatar_for(comment.user, :size => :small), user_path(comment.user) %>
+
+  <div class="tools">
+    <%= link_to_edit(comment) + " | " %>
+    <%= link_to_delete(comment) %>
+  </div>
+
+  <div class="indentslim">
+    <%= link_to comment.user.full_name, user_path(comment.user) %>
+
+    <tt>
+      <%= timeago(comment.created_at) %>
+    </tt>
+
+    <dt>
+      <%= auto_link(simple_format comment.comment) %>
+    </dt>
+  </div>
+</li>

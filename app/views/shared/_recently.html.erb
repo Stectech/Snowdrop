@@ -1,0 +1,15 @@
+<% @versions = Version.recent_for_user(current_user) %>
+
+<div class="panel" id="recently">
+  <div class="caption">
+    <%= t :recent_items %>
+  </div>
+
+  <% if @versions.present? %>
+    <%= render :partial => "shared/recent", :collection => @versions %>
+  <% else %>
+    <div>
+      <%= t :no_recent_items %>
+    </div>
+  <% end %>
+</div>

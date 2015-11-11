@@ -1,0 +1,35 @@
+<% address_attr = "#{type}_address" %>
+<% address = get_address(asset, address_attr) %>
+<% title ||= nil %>
+
+<% unless address.blank? %>
+  <% if Setting.compound_address %>
+    <div>
+      <% if title %>
+        <b><%= t title %></b>
+        <br>
+      <% end %>
+
+      <%= h address.street1 %>
+
+      <% unless address.street2.blank? %>
+        <br>
+        <%= h address.street2 %>
+      <% end %>
+
+      <br>
+      <%= h "#{address.city}, #{address.state} #{address.zipcode}" %>
+
+      <% unless address.country.blank? %>
+        <br>
+        <%= h address.country %>
+      <% end %>
+    </div>
+  <% else %>
+    <div>
+      <b><%= t title %></b>
+      <br>
+      <%= h(address.full_address).n2br %>
+    </div>
+  <% end %>
+<% end %>

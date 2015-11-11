@@ -1,0 +1,60 @@
+<%# Generate dynamic styles that get embedded on the page. %>
+<% content_for :styles do %>
+  <% if models.include?(:account) %>
+    <% Setting.account_category_color.each do |key, value| %>
+      <li class="account">
+        .<%= key %> { background:<%= value %>; }
+      </li>
+    <% end %>
+  <% end %>
+
+  <% if models.include?(:campaign) %>
+    <% Setting.campaign_status_color.each do |key, value| %>
+      <li class="campaign">
+        .<%= key %> { background:<%= value %>; }
+      </li>
+    <% end %>
+  <% end %>
+
+  <% if models.include?(:lead) %>
+    <% Setting.lead_status_color.each do |key, value| %>
+      <li class="lead">
+        .<%= key %> { background:<%= value %>; }
+      </li>
+    <% end %>
+  <% end %>
+
+  <% if models.include?(:opportunity) %>
+    <% Setting.opportunity_stage_color.each do |key, value| %>
+      <li class="opportunity">
+        .<%= key %> { background:<%= value %>; }
+      </li>
+    <% end %>
+  <% end %>
+
+  <% if models.include?(:task) %>
+    <% Setting.task_category_color.each do |key, value| %>
+      <li class="task">
+        .<%= key %> { background:<%= value %>; }
+      </li>
+    <% end %>
+  <% end %>
+
+  <% if models.include?(:user) %>
+    <li class="user">
+      .admin { background: lightblue; }
+    </li>
+
+    <li class="user">
+      .suspended { background: gainsboro; }
+    </li>
+    <li class="user">
+      .active { background: lightgreen; }
+    </li>
+    <li class="user">
+       .signed_up { background: lightsalmon; }
+    </li>
+  <% end %>
+
+  <%= hook(:inline_styles, self, local_assigns) %>
+<% end %>
