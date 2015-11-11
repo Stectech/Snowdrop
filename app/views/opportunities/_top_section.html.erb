@@ -1,0 +1,119 @@
+<%= hook(:opportunity_top_section, self, :f => f) do %>
+  <div class="section">
+    <table>
+      <tr>
+        <td>
+          <div class="label req top">
+            <%= t :name %>:
+          </div>
+
+          <%= f.text_field :name, :autofocus => true, :style => "width:325px" %>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label req top">
+            <%= t :stage %>:
+          </div>
+
+          <%= f.select :stage, @stage, { :selected => @opportunity.stage ? @opportunity.stage.to_sym : nil }, { :style => "width:160px" } %>
+        </td>
+      </tr>
+    </table>
+
+    <table border="0" width="500" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <div class="label">
+            <%= t :close_date %>:
+          </div>
+
+          <%= f.text_field :closes_on, :value => f.object.closes_on, :style => "width:110px;", :autocomplete => :off, :class => 'date' %>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label">
+            <%= t :probability %>(%):
+          </div>
+
+          <%= f.text_field :probability, :style => "width:110px; text-align:right;" %>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label">
+            <%= t :amount %> <%= t :currency %>:
+          </div>
+
+          <%= f.text_field :amount, :style => "width:110px; text-align:right;" %>
+        </td>
+
+        <td><%= spacer %></td>
+
+        <td>
+          <div class="label">
+            <%= t :discount %> <%= t :currency %>:
+          </div>
+
+          <%= f.text_field :discount, :style => "width:110px; text-align:right;" %>
+        </td>
+      </tr>
+    </table>
+
+    <%= fields_for(@account) do |a| %>
+      <%= a.hidden_field :user_id %>
+      <%= a.hidden_field :access %>
+      <%= a.hidden_field :assigned_to %>
+      <table>
+        <tr>
+          <td>
+            <%= (account_select_or_create(a)).html_safe do |options| %>
+              <%# Add [-- None --] account choice when editing existing opportunity that has an account. %>
+              <% options[:selected] = @account.id || 0 %>
+              <% options[:include_blank] = true %> <%# t(:select_none) unless @opportunity.new_record? || @opportunity.account.blank? %>
+            <% end %>
+          </td>
+
+          <td><%= spacer %></td>
+
+          <td>
+            <div class="label req">
+              <%= t :assigned_to %>:
+            </div>
+            <%= user_select(:opportunity, all_users, current_user) %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="label">
+              <%= t :campaign %>:
+            </div>
+
+            <%= opportunity_campaign_select( selected: (@campaign.try(:id) || @opportunity.campaign_id), include_blank: true ) %>
+          </td>
+        </tr>
+
+        <% if Setting.background_info && Setting.background_info.include?(:opportunity) %>
+          <tr>
+            <td colspan="3">
+              <div class="label">
+                <%= t(:background_info) << ':' %>
+              </div>
+
+              <%= f.text_area :background_info, :style =>"width:500px", :rows => 3 %>
+            </td>
+          </tr>
+        <% end %>
+
+        <%= render :partial => "/shared/tags", :locals => {:f => f, :span => 3} %>
+
+        <%= hook(:opportunity_top_section_bottom, self, :f => f) %>
+      </table>
+   <% end %>
+  </div>
+<% end %>
