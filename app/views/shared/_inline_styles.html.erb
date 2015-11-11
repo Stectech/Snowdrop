@@ -2,58 +2,39 @@
 <% content_for :styles do %>
   <% if models.include?(:account) %>
     <% Setting.account_category_color.each do |key, value| %>
-      <li class="account">
-        .<%= key %> { background:<%= value %>; }
-      </li>
+      li.account .<%= key %> { background:<%= value %>; }
     <% end %>
   <% end %>
 
   <% if models.include?(:campaign) %>
     <% Setting.campaign_status_color.each do |key, value| %>
-      <li class="campaign">
-        .<%= key %> { background:<%= value %>; }
-      </li>
+      li.campaign  .<%= key %> { background:<%= value %>; }
     <% end %>
   <% end %>
 
   <% if models.include?(:lead) %>
     <% Setting.lead_status_color.each do |key, value| %>
-      <li class="lead">
-        .<%= key %> { background:<%= value %>; }
-      </li>
+      li.lead  .<%= key %> { background:<%= value %>; }
     <% end %>
   <% end %>
 
   <% if models.include?(:opportunity) %>
     <% Setting.opportunity_stage_color.each do |key, value| %>
-      <li class="opportunity">
-        .<%= key %> { background:<%= value %>; }
-      </li>
+      li.opportunity .<%= key %> { background:<%= value %>; }
     <% end %>
   <% end %>
 
   <% if models.include?(:task) %>
     <% Setting.task_category_color.each do |key, value| %>
-      <li class="task">
-        .<%= key %> { background:<%= value %>; }
-      </li>
+      li.task .<%= key %> { background:<%= value %>; }
     <% end %>
   <% end %>
 
   <% if models.include?(:user) %>
-    <li class="user">
-      .admin { background: lightblue; }
-    </li>
-
-    <li class="user">
-      .suspended { background: gainsboro; }
-    </li>
-    <li class="user">
-      .active { background: lightgreen; }
-    </li>
-    <li class="user">
-       .signed_up { background: lightsalmon; }
-    </li>
+    li.user .admin { background: lightblue; }
+    li.user .suspended { background: gainsboro; }
+    li.user .active { background: lightgreen; }
+    li.user  .signed_up { background: lightsalmon; }
   <% end %>
 
   <%= hook(:inline_styles, self, local_assigns) %>
