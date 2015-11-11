@@ -4,11 +4,11 @@
       <%= t :pending_tab %>
     </td>
 
-    <td class="selector <%= @view == 'assigned' ? 'on' : 'off' %>" width="33%" onclick="document.location.href='<%= url_for(:action => :index, :view => "assigned" %>'">
+    <td class="selector <%= @view == 'assigned' ? 'on' : 'off' %>" width="33%" onclick="document.location.href='<%= url_for(:action => :index, :view => "assigned") %>'">
       <%= t :assigned_tab %>
     </td>
-  
-    <td class="selector left <%= @view == 'pending' ? 'on' : 'off' %>" width="33%" onclick="document.location.href='<%= url_for(:action => :index, :view => "completed" %>'">
+
+    <td class="selector right <%= @view == 'completed' ? 'on' : 'off' %>" width="33%" onclick="document.location.href='<%= url_for(:action => :index, :view => "completed") %>'">
       <%= t :completed_tab %>
     </td>
   </tr>
