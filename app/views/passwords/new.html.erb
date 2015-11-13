@@ -1,0 +1,23 @@
+<div class="standalone">
+  <%= form_tag(passwords_path, one_submit_only) do %>
+    <div class="title">
+      <%= t :forgot_password %>
+    </div>
+
+    <div class="intro">
+      <%= t :password_intro %>
+    </div>
+
+    <div class="section">
+      <div class="label">
+        <%= t :email %>:
+      </div>
+
+      <%= text_field_tag :email %>
+    </div>
+    <br>
+    <div class="buttonbar">
+      <%= submit_tag t(:reset_password), :id => "passwords_submit" %>
+    </div>
+  <% end %>
+</div>
