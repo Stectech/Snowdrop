@@ -4,9 +4,14 @@
 
 <% end %>
 
-new crm.Menu({
-  trigger   : "#sort_by",
-  fade      : 500,
-  appear    : 500,
-  menu_items: [ #{sort_by_menu_items.join(",")} ]
-});
+
+<% content_for :javascript do %>
+  <script type='test/javascript'>
+    new crm.Menu({
+      trigger   : "#sort_by",
+      fade      : 500,
+      appear    : 500,
+      menu_items: [ <%= sort_by_menu_items.join(",")%> ]
+    });
+   </script>
+<% end %>
