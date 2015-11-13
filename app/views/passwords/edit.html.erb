@@ -1,0 +1,31 @@
+<div class="standalone">
+  <%= form_for(@user, :url => password_path(params[:id]), :html => one_submit_only, :method => :put) do |f| %>
+    <div class="title">
+      <%= t :reset_password %>
+    </div>
+
+    <%= f.error_messages :object_name => t('password') %>
+
+    <div class="intro">
+      <%= t :confirm_password_intro %>
+    </div>
+
+    <div class="section">
+      <div class="label">
+        <%= t :new_password %>:
+      </div>
+
+      <%= f.password_field :password %>
+
+      <div class="label">
+        <%= t :password_confirmation %>:
+      </div>
+
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <br>
+    <div class="buttonbar">
+      <%= f.submit t(:update_password_and_login) %>
+    </div>
+  <% end %>
+</div>
