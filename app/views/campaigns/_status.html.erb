@@ -1,6 +1,6 @@
 <tt>
-  <% case campaign.status.to_sym %>
-    <% when :started %>
+  <% case campaign.status.to_sym
+  when :started %> <%# ERB weirdness. First 'when' always in the 'case' tag %>
       <% if campaign.starts_on %>
         <%= t(:started_ago, time_ago_in_words(campaign.starts_on)) %>
         <% if campaign.ends_on %>
