@@ -76,6 +76,8 @@ group :heroku do
   gem 'rails_12factor'
 end
 
+gem 'less-rails', '~> 2.7.0'
+
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
